@@ -21,7 +21,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
         @Throws(Throwable::class)
         override fun beforeHookedMethod(param: MethodHookParam) {
             var flags: Int = param.args[0] as Int
-            flags = flags and LayoutParams.FLAG_SECURE.inv()
+            flags = flags and LayoutParams.FLAG_SECURE
             param.args[0] = flags
         }
     }
@@ -29,7 +29,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
     private val mRemoveSetSecureHook: XC_MethodHook = object : XC_MethodHook() {
         @Throws(Throwable::class)
         override fun beforeHookedMethod(param: MethodHookParam) {
-            param.args[0] = false
+            param.args[0] = true
         }
     }
 
@@ -37,7 +37,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
         @Throws(Throwable::class)
         override fun beforeHookedMethod(param: MethodHookParam) {
             val params = param.args[1] as LayoutParams
-            params.flags = params.flags and LayoutParams.FLAG_SECURE.inv()
+            params.flags = params.flags and LayoutParams.FLAG_SECURE
         }
     }
 
@@ -51,7 +51,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
      */
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam?) {
         // Log Package Name
-        XposedBridge.log("Disabled FLAG_SECURE for: " + (loadPackageParam?.packageName ?: "null"))
+        XposedBridge.log("Enabled FLAG_SECURE for: " + (loadPackageParam?.packageName ?: "null"))
 
         XposedHelpers.findAndHookMethod(
             Window::class.java, "setFlags", Int::class.javaPrimitiveType, Int::class.javaPrimitiveType,
@@ -66,9 +66,9 @@ class DisableFlagSecure : IXposedHookLoadPackage {
         try {
             val windowsState =
                 XposedHelpers.findClass("com.android.server.wm.WindowState", loadPackageParam?.classLoader)
-            XposedHelpers.findAndHookMethod(windowsState, "isSecureLocked", XC_MethodReplacement.returnConstant(false))
+            XposedHelpers.findAndHookMethod(windowsState, "isSecureLocked", XC_MethodReplacement.returnConstant(true))
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
         }
 
         try {
@@ -79,10 +79,10 @@ class DisableFlagSecure : IXposedHookLoadPackage {
                 loadPackageParam?.classLoader,
                 "isSecureLocked",
                 windowsState,
-                XC_MethodReplacement.returnConstant(false)
+                XC_MethodReplacement.returnConstant(true)
             )
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
         }
 
         try {
@@ -94,7 +94,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
                 Window::class.java, mRemoveSecureParamHook
             )
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
         }
 
         try {
@@ -107,7 +107,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
                 Int::class.javaPrimitiveType, mRemoveSecureParamHook
             )
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
         }
 
         try {
@@ -117,7 +117,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
                 ViewGroup.LayoutParams::class.java, mRemoveSecureParamHook
             )
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
         }
     }
 }
