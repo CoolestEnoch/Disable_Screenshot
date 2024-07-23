@@ -1,4 +1,4 @@
-package com.varuns2002.enable_flag_secure
+package com.varuns2002.disable_flag_secure
 
 import android.view.SurfaceView
 import android.view.Window
@@ -13,7 +13,7 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 
-class EnableFlagSecure : IXposedHookLoadPackage {
+class DisableFlagSecure : IXposedHookLoadPackage {
 
     private val debug: Boolean = false
 
@@ -51,7 +51,7 @@ class EnableFlagSecure : IXposedHookLoadPackage {
      */
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam?) {
         // Log Package Name
-        XposedBridge.log("Enabled FLAG_SECURE for: " + (loadPackageParam?.packageName ?: "null"))
+        XposedBridge.log("Disabled FLAG_SECURE for: " + (loadPackageParam?.packageName ?: "null"))
 
         XposedHelpers.findAndHookMethod(
             Window::class.java, "setFlags", Int::class.javaPrimitiveType, Int::class.javaPrimitiveType,
@@ -68,7 +68,7 @@ class EnableFlagSecure : IXposedHookLoadPackage {
                 XposedHelpers.findClass("com.android.server.wm.WindowState", loadPackageParam?.classLoader)
             XposedHelpers.findAndHookMethod(windowsState, "isSecureLocked", XC_MethodReplacement.returnConstant(true))
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
         }
 
         try {
@@ -82,7 +82,7 @@ class EnableFlagSecure : IXposedHookLoadPackage {
                 XC_MethodReplacement.returnConstant(true)
             )
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
         }
 
         try {
@@ -94,7 +94,7 @@ class EnableFlagSecure : IXposedHookLoadPackage {
                 Window::class.java, mRemoveSecureParamHook
             )
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
         }
 
         try {
@@ -107,7 +107,7 @@ class EnableFlagSecure : IXposedHookLoadPackage {
                 Int::class.javaPrimitiveType, mRemoveSecureParamHook
             )
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
         }
 
         try {
@@ -117,7 +117,7 @@ class EnableFlagSecure : IXposedHookLoadPackage {
                 ViewGroup.LayoutParams::class.java, mRemoveSecureParamHook
             )
         } catch (error: Throwable) {
-            if (debug) XposedBridge.log("Enable-FLAG_SECURE: $error")
+            if (debug) XposedBridge.log("Disable-FLAG_SECURE: $error")
         }
     }
 }
