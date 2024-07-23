@@ -1,6 +1,13 @@
 <img width="128" height="128" src="https://i.imgur.com/MFgAUdY.png" alt="icon_square">
 
-# Xposed-Disable-FLAG_SECURE
+> 某些领导天天叫你截屏某个界面给他，但是你又不想截？
+> 这种领导是不是很烦（点名🪨某辅导员）
+> 这个时候你就需要这个xposed模块。把你不想截屏的软件加入作用域，这样就会在截屏的时候提示此界面不允许截屏。
+> 至于后面的事，你只管把锅往ta头上甩就完事了。
+> 本项目基于[Disable-FLAG_SECURE](https://github.com/VarunS2002/Xposed-Disable-FLAG_SECURE)。
+> 后面是原项目的readme
+
+# Xposed-Enable-FLAG_SECURE
 
 Xposed Module to Disable `FLAG_SECURE`, enabling screenshots, screen sharing and recording in apps that normally
 wouldn't allow it.
