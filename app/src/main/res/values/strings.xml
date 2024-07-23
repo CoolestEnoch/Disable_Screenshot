@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Disable-FLAG_SECURE</string>
-    <string name="xposed_description">Disables FLAG_SECURE, enabling screenshots and recording in apps that normally wouldn\'t allow it.</string>
+    <string name="app_name">Enable-FLAG_SECURE</string>
+    <string name="xposed_description">手动禁止在某些界面截屏，方便以这个理由躲过一些来自领导的截屏要求。</string>
     <string-array name="scope">
         <item>android</item>
     </string-array>

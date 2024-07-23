@@ -1,4 +1,4 @@
-package com.varuns2002.disable_flag_secure
+package com.varuns2002.enable_flag_secure
 
 import android.view.SurfaceView
 import android.view.Window
@@ -13,7 +13,7 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 
-class DisableFlagSecure : IXposedHookLoadPackage {
+class EnableFlagSecure : IXposedHookLoadPackage {
 
     private val debug: Boolean = false
 
