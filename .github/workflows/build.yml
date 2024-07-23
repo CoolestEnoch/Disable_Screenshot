@@ -40,5 +40,4 @@ jobs:
           name: app-release
           path: ${{github.workspace}}/app/build/outputs/apk/release/*.apk
           if-no-files-found: warn
-          ret
           ention-days: 30
