@@ -1,4 +1,4 @@
-package com.varuns2002.disable_flag_secure
+package com.varuns2002.enable_flag_secure
 
 import android.view.SurfaceView
 import android.view.Window
@@ -13,7 +13,7 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 
-class DisableFlagSecure : IXposedHookLoadPackage {
+class EnableFlagSecure : IXposedHookLoadPackage {
 
     private val debug: Boolean = false
 
@@ -21,7 +21,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
         @Throws(Throwable::class)
         override fun beforeHookedMethod(param: MethodHookParam) {
             var flags: Int = param.args[0] as Int
-            flags = flags and LayoutParams.FLAG_SECURE
+            flags = flags or LayoutParams.FLAG_SECURE
             param.args[0] = flags
         }
     }
@@ -37,7 +37,7 @@ class DisableFlagSecure : IXposedHookLoadPackage {
         @Throws(Throwable::class)
         override fun beforeHookedMethod(param: MethodHookParam) {
             val params = param.args[1] as LayoutParams
-            params.flags = params.flags and LayoutParams.FLAG_SECURE
+            params.flags = params.flags or LayoutParams.FLAG_SECURE
         }
     }
 
